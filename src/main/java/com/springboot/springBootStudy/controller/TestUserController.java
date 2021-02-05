@@ -1,5 +1,6 @@
 package com.springboot.springBootStudy.controller;
 
+import com.springboot.springBootStudy.common.ServiceException;
 import com.springboot.springBootStudy.dto.UserDto;
 import com.springboot.springBootStudy.service.TestUserService;
 import io.swagger.annotations.Api;
@@ -24,6 +25,9 @@ public class TestUserController {
     @PostMapping("login")
     public String login(@RequestBody UserDto userDto){
         testUserService.login(userDto);
+        if (userDto.getName().contains("error")){
+            ServiceException.throwEx("用户名中含有error");
+        }
         return "成功"+ hogwartsKey1;
     }
 
